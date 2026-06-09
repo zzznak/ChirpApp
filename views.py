@@ -14,61 +14,69 @@ def login_view(go_to_reg, on_login_click):
     email = ft.TextField(
         label="Электронная почта",
         width=400,
-        height=55,
+        height=60,
         border_radius=10,
         bgcolor=COLOR_SECONDARY,
         border_color=COLOR_BORDER,
-        text_size=14,
+        text_size=15,
         color=COLOR_TEXT_PRIMARY,
-        label_style=ft.TextStyle(color=COLOR_TEXT_SECONDARY, size=13),
-        content_padding=ft.padding.symmetric(15, 10)
+        label_style=ft.TextStyle(color=COLOR_TEXT_SECONDARY, size=14),
+        input_filter=ft.InputFilter(allow=True),
+        filled=True
     )
     password = ft.TextField(
         label="Пароль",
         password=True,
         width=400,
-        height=55,
+        height=60,
         border_radius=10,
         bgcolor=COLOR_SECONDARY,
         border_color=COLOR_BORDER,
-        text_size=14,
+        text_size=15,
         color=COLOR_TEXT_PRIMARY,
-        label_style=ft.TextStyle(color=COLOR_TEXT_SECONDARY, size=13),
-        content_padding=ft.padding.symmetric(15, 10)
+        label_style=ft.TextStyle(color=COLOR_TEXT_SECONDARY, size=14),
+        filled=True
     )
     
     return ft.Column([
-        ft.Text("ChirpApp", size=40, weight="bold", color=COLOR_ACCENT),
-        ft.Text("Secure Messaging", size=16, color=COLOR_TEXT_SECONDARY),
-        ft.Divider(height=30, color="transparent"),
+        ft.Text("ChirpApp", size=50, weight="bold", color=COLOR_ACCENT),
+        ft.Text("Secure Messaging", size=18, color=COLOR_TEXT_SECONDARY),
+        ft.Divider(height=40, color="transparent"),
+        ft.Text("Вход в аккаунт", size=20, color=COLOR_TEXT_PRIMARY, weight="w500"),
+        ft.Divider(height=20, color="transparent"),
         email,
+        ft.Divider(height=10, color="transparent"),
         password,
+        ft.Divider(height=20, color="transparent"),
         ft.ElevatedButton(
-            "Войти",
+            "🔓 Войти",
             on_click=lambda e: on_login_click(email.value, password.value),
             style=ft.ButtonStyle(
                 shape=ft.RoundedRectangleBorder(radius=10),
                 bgcolor=COLOR_ACCENT,
-                color="white"
+                color="white",
+                padding=20
             ),
             width=400,
-            height=55
+            height=60,
+            text_style=ft.TextStyle(size=16, weight="bold")
         ),
-        ft.Row([
-            ft.Text("Нет аккаунта?", color=COLOR_TEXT_SECONDARY),
+        ft.Divider(height=20, color="transparent"),
+        ft.Row([\n            ft.Text("Нет аккаунта?", color=COLOR_TEXT_SECONDARY, size=14),
             ft.TextButton(
-                "Зарегистрироваться",
+                "Создать аккаунт",
                 on_click=go_to_reg,
-                style=ft.ButtonStyle(color=COLOR_ACCENT)
+                style=ft.ButtonStyle(color=COLOR_ACCENT),
+                style_text=ft.TextStyle(size=14, weight="bold")
             )
-        ], alignment=ft.MainAxisAlignment.CENTER, spacing=5)
+        ], alignment=ft.MainAxisAlignment.CENTER, spacing=10)
     ],
     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
     vertical_alignment=ft.MainAxisAlignment.CENTER,
     expand=True,
-    spacing=15,
+    spacing=0,
     bgcolor=COLOR_BG_DARK,
-    padding=20
+    padding=30
     )
 
 # ===== РЕГИСТРАЦИЯ =====
@@ -76,82 +84,92 @@ def reg_view(go_to_login, on_reg_click):
     email = ft.TextField(
         label="Электронная почта",
         width=400,
-        height=55,
+        height=60,
         border_radius=10,
         bgcolor=COLOR_SECONDARY,
         border_color=COLOR_BORDER,
         color=COLOR_TEXT_PRIMARY,
-        text_size=14,
-        label_style=ft.TextStyle(color=COLOR_TEXT_SECONDARY, size=13),
-        content_padding=ft.padding.symmetric(15, 10)
+        text_size=15,
+        label_style=ft.TextStyle(color=COLOR_TEXT_SECONDARY, size=14),
+        filled=True
     )
     password = ft.TextField(
-        label="Пароль",
+        label="Пароль (минимум 6 символов)",
         password=True,
         width=400,
-        height=55,
+        height=60,
         border_radius=10,
         bgcolor=COLOR_SECONDARY,
         border_color=COLOR_BORDER,
         color=COLOR_TEXT_PRIMARY,
-        text_size=14,
-        label_style=ft.TextStyle(color=COLOR_TEXT_SECONDARY, size=13),
-        content_padding=ft.padding.symmetric(15, 10)
+        text_size=15,
+        label_style=ft.TextStyle(color=COLOR_TEXT_SECONDARY, size=14),
+        filled=True
     )
     username = ft.TextField(
-        label="Имя пользователя",
+        label="Имя пользователя (3-15 символов)",
         width=400,
-        height=55,
+        height=60,
         border_radius=10,
         bgcolor=COLOR_SECONDARY,
         border_color=COLOR_BORDER,
         color=COLOR_TEXT_PRIMARY,
-        text_size=14,
-        label_style=ft.TextStyle(color=COLOR_TEXT_SECONDARY, size=13),
-        content_padding=ft.padding.symmetric(15, 10)
+        text_size=15,
+        label_style=ft.TextStyle(color=COLOR_TEXT_SECONDARY, size=14),
+        filled=True
     )
     
     return ft.Column([
-        ft.Text("ChirpApp", size=40, weight="bold", color=COLOR_ACCENT),
-        ft.Text("Создание аккаунта", size=16, color=COLOR_TEXT_SECONDARY),
-        ft.Divider(height=30, color="transparent"),
+        ft.Text("ChirpApp", size=50, weight="bold", color=COLOR_ACCENT),
+        ft.Text("Создание аккаунта", size=18, color=COLOR_TEXT_SECONDARY),
+        ft.Divider(height=40, color="transparent"),
+        ft.Text("Регистрация", size=20, color=COLOR_TEXT_PRIMARY, weight="w500"),
+        ft.Divider(height=20, color="transparent"),
         email,
+        ft.Divider(height=10, color="transparent"),
         password,
+        ft.Divider(height=10, color="transparent"),
         username,
+        ft.Divider(height=20, color="transparent"),
         ft.ElevatedButton(
-            "Зарегистрироваться",
+            "✅ Зарегистрироваться",
             on_click=lambda e: on_reg_click(email.value, password.value, username.value),
             style=ft.ButtonStyle(
                 shape=ft.RoundedRectangleBorder(radius=10),
                 bgcolor=COLOR_ACCENT,
-                color="white"
+                color="white",
+                padding=20
             ),
             width=400,
-            height=55
+            height=60,
+            text_style=ft.TextStyle(size=16, weight="bold")
         ),
+        ft.Divider(height=20, color="transparent"),
         ft.Row([
-            ft.Text("Уже есть аккаунт?", color=COLOR_TEXT_SECONDARY),
+            ft.Text("Уже есть аккаунт?", color=COLOR_TEXT_SECONDARY, size=14),
             ft.TextButton(
                 "Войти",
                 on_click=go_to_login,
-                style=ft.ButtonStyle(color=COLOR_ACCENT)
+                style=ft.ButtonStyle(color=COLOR_ACCENT),
+                style_text=ft.TextStyle(size=14, weight="bold")
             )
-        ], alignment=ft.MainAxisAlignment.CENTER, spacing=5)
+        ], alignment=ft.MainAxisAlignment.CENTER, spacing=10)
     ],
     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
     vertical_alignment=ft.MainAxisAlignment.CENTER,
     expand=True,
-    spacing=15,
+    spacing=0,
     bgcolor=COLOR_BG_DARK,
-    padding=20
+    padding=30
     )
 
 # ===== ЧАТЫ =====
 def chats_view(users, on_chat_click, toggle_menu):
     search_field = ft.TextField(
-        hint_text="Поиск",
+        hint_text="Поиск чатов...",
         bgcolor=COLOR_SECONDARY,
-        border=ft.InputBorder.NONE,
+        border=ft.InputBorder.OUTLINE,
+        border_color=COLOR_BORDER,
         prefix_icon=ft.icons.SEARCH,
         expand=True,
         color=COLOR_TEXT_PRIMARY,
@@ -277,7 +295,7 @@ def chat_window(receiver_username, messages, on_send, is_online):
                     ft.Column([
                         ft.Text(receiver_username, color=COLOR_TEXT_PRIMARY, weight="bold"),
                         ft.Text(
-                            "В сети" if is_online else "Был недавно",
+                            "🟢 В сети" if is_online else "⚫ Был недавно",
                             color=COLOR_TEXT_SECONDARY,
                             size=12
                         )
