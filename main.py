@@ -15,6 +15,69 @@ COLOR_ACCENT = "#1F96C7"
 COLOR_TEXT_PRIMARY = "#FFFFFF"
 COLOR_TEXT_SECONDARY = "#7A8288"
 
+# ===== ВАЛИДАЦИЯ EMAIL =====
+def validate_email(email):
+    """Проверяет корректность email адреса"""
+    # Более строгая проверка email
+    email_regex = r'^[a-zA-Z0-9][a-zA-Z0-9._%+-]*@[a-zA-Z0-9][a-zA-Z0-9.-]*\.[a-zA-Z]{2,}$'
+    
+    if not email or len(email) > 254:
+        return False, "Email должен содержать от 1 до 254 символов"
+    
+    if not re.match(email_regex, email):
+        return False, "Неверный формат email (пример: user@example.com)"
+    
+    # Проверка на запрещенные символы
+    if '..' in email:
+        return False, "Email не может содержать две точки подряд"
+    
+    if email.endswith('.'):
+        return False, "Email не может заканчиваться на точку"
+    
+    # Проверка на популярные доменные имена
+    valid_domains = [
+        'gmail.com', 'yandex.ru', 'mail.ru', 'outlook.com', 'yahoo.com',
+        'hotmail.com', 'rambler.ru', 'bk.ru', 'inbox.ru', 'list.ru',
+        'mail.ua', 'ukr.net', 'i.ua'
+    ]
+    
+    domain = email.split('@')[1].lower()
+    # Если домен не в списке популярных, то можно использовать, но это рискованнее
+    
+    return True, "OK"
+
+def validate_password(password):
+    """Проверяет надежность пароля"""
+    if not password:
+        return False, "Пароль не может быть пустым"
+    
+    if len(password) < 6:
+        return False, "Пароль должен содержать минимум 6 символов"
+    
+    if len(password) > 128:
+        return False, "Пароль слишком длинный (макс. 128 символов)"
+    
+    return True, "OK"
+
+def validate_username(username):
+    """Проверяет корректность юзернейма"""
+    if not username:
+        return False, "Юзернейм не может быть пустым"
+    
+    if len(username) < 3:
+        return False, "Юзернейм должен содержать минимум 3 символа"
+    
+    if len(username) > 15:
+        return False, "Юзернейм может содержать максимум 15 символов"
+    
+    if not re.match(r'^[a-zA-Z0-9_]+$', username):
+        return False, "Юзернейм может содержать только латиницу, цифры и подчеркивание"
+    
+    if username[0].isdigit():
+        return False, "Юзернейм не может начинаться с цифры"
+    
+    return True, "OK"
+
 async def main(page: ft.Page):
     page.theme_mode = ft.ThemeMode.DARK
     page.bgcolor = COLOR_BG_DARK
@@ -135,32 +198,54 @@ async def main(page: ft.Page):
         page.update()
     
     def reg_handler(email, password, username):
-        email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-        if not re.match(email_regex, email):
-            show_error("Неверный формат почты!")
+        # Проверка email
+        is_valid, error_msg = validate_email(email)
+        if not is_valid:
+            show_error(f"Email: {error_msg}")
             return
-        if not re.match(r'^[a-zA-Z0-9_]{3,15}$', username):
-            show_error("Юзернейм: 3-15 символов, только латиница и цифры!")
+        
+        # Проверка пароля
+        is_valid, error_msg = validate_password(password)
+        if not is_valid:
+            show_error(f"Пароль: {error_msg}")
+            return
+        
+        # Проверка юзернейма
+        is_valid, error_msg = validate_username(username)
+        if not is_valid:
+            show_error(f"Юзернейм: {error_msg}")
             return
         
         if register_user(email, password, username):
-            show_success("Регистрация успешна! Теперь войдите.")
+            show_success("✅ Регистрация успешна! Теперь войдите.")
             go_to_login(None)
         else:
-            show_error("Этот email или юзернейм уже заняты.")
+            show_error("❌ Этот email или юзернейм уже заняты.")
     
     def login_handler(email, password):
         nonlocal current_user_email, current_username
+        
+        # Проверка email
+        is_valid, error_msg = validate_email(email)
+        if not is_valid:
+            show_error(f"Email: {error_msg}")
+            return
+        
+        # Проверка пароля
+        if not password:
+            show_error("Пароль не может быть пустым")
+            return
+        
         user_name = check_login(email, password)
         
         if user_name:
             current_user_email = email
             current_username = user_name
             page.run_task(listen_to_server, user_name)
-            show_success(f"Добро пожаловать, {user_name}!")
+            show_success(f"✅ Добро пожаловать, {user_name}!")
             go_to_chats(None)
         else:
-            show_error("Неверный email или пароль")
+            show_error("❌ Неверный email или пароль")
     
     def open_chat(receiver_username):
         nonlocal current_chat
@@ -201,7 +286,7 @@ async def main(page: ft.Page):
     
     def toggle_menu(e=None):
         # В полной версии здесь будет боковое меню
-        show_error("Меню: Профиль, Настройки, О программе")
+        show_error("📋 Меню: Профиль, Настройки, О программе")
     
     def go_to_reg(e):
         content_area.content = reg_view(go_to_login, reg_handler)

@@ -19,7 +19,9 @@ def login_view(go_to_reg, on_login_click):
         bgcolor=COLOR_SECONDARY,
         border_color=COLOR_BORDER,
         text_size=14,
-        color=COLOR_TEXT_PRIMARY
+        color=COLOR_TEXT_PRIMARY,
+        label_style=ft.TextStyle(color=COLOR_TEXT_SECONDARY, size=13),
+        content_padding=ft.padding.symmetric(15, 10)
     )
     password = ft.TextField(
         label="Пароль",
@@ -30,7 +32,9 @@ def login_view(go_to_reg, on_login_click):
         bgcolor=COLOR_SECONDARY,
         border_color=COLOR_BORDER,
         text_size=14,
-        color=COLOR_TEXT_PRIMARY
+        color=COLOR_TEXT_PRIMARY,
+        label_style=ft.TextStyle(color=COLOR_TEXT_SECONDARY, size=13),
+        content_padding=ft.padding.symmetric(15, 10)
     )
     
     return ft.Column([
@@ -76,7 +80,10 @@ def reg_view(go_to_login, on_reg_click):
         border_radius=10,
         bgcolor=COLOR_SECONDARY,
         border_color=COLOR_BORDER,
-        color=COLOR_TEXT_PRIMARY
+        color=COLOR_TEXT_PRIMARY,
+        text_size=14,
+        label_style=ft.TextStyle(color=COLOR_TEXT_SECONDARY, size=13),
+        content_padding=ft.padding.symmetric(15, 10)
     )
     password = ft.TextField(
         label="Пароль",
@@ -86,7 +93,10 @@ def reg_view(go_to_login, on_reg_click):
         border_radius=10,
         bgcolor=COLOR_SECONDARY,
         border_color=COLOR_BORDER,
-        color=COLOR_TEXT_PRIMARY
+        color=COLOR_TEXT_PRIMARY,
+        text_size=14,
+        label_style=ft.TextStyle(color=COLOR_TEXT_SECONDARY, size=13),
+        content_padding=ft.padding.symmetric(15, 10)
     )
     username = ft.TextField(
         label="Имя пользователя",
@@ -95,7 +105,10 @@ def reg_view(go_to_login, on_reg_click):
         border_radius=10,
         bgcolor=COLOR_SECONDARY,
         border_color=COLOR_BORDER,
-        color=COLOR_TEXT_PRIMARY
+        color=COLOR_TEXT_PRIMARY,
+        text_size=14,
+        label_style=ft.TextStyle(color=COLOR_TEXT_SECONDARY, size=13),
+        content_padding=ft.padding.symmetric(15, 10)
     )
     
     return ft.Column([
@@ -103,8 +116,8 @@ def reg_view(go_to_login, on_reg_click):
         ft.Text("Создание аккаунта", size=16, color=COLOR_TEXT_SECONDARY),
         ft.Divider(height=30, color="transparent"),
         email,
-        username,
         password,
+        username,
         ft.ElevatedButton(
             "Зарегистрироваться",
             on_click=lambda e: on_reg_click(email.value, password.value, username.value),
@@ -215,6 +228,7 @@ def chat_window(receiver_username, messages, on_send, is_online):
         border_radius=20,
         border_color="transparent",
         color=COLOR_TEXT_PRIMARY,
+        hint_style=ft.TextStyle(color=COLOR_TEXT_SECONDARY),
         min_lines=1,
         max_lines=4
     )
