@@ -62,7 +62,8 @@ def login_view(go_to_reg, on_login_click):
             text_style=ft.TextStyle(size=16, weight="bold")
         ),
         ft.Divider(height=20, color="transparent"),
-        ft.Row([\n            ft.Text("Нет аккаунта?", color=COLOR_TEXT_SECONDARY, size=14),
+        ft.Row([
+            ft.Text("Нет аккаунта?", color=COLOR_TEXT_SECONDARY, size=14),
             ft.TextButton(
                 "Создать аккаунт",
                 on_click=go_to_reg,
