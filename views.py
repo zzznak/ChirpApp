@@ -21,7 +21,6 @@ def login_view(go_to_reg, on_login_click):
         text_size=15,
         color=COLOR_TEXT_PRIMARY,
         label_style=ft.TextStyle(color=COLOR_TEXT_SECONDARY, size=14),
-        input_filter=ft.InputFilter(allow=True),
         filled=True
     )
     password = ft.TextField(
@@ -58,8 +57,7 @@ def login_view(go_to_reg, on_login_click):
                 padding=20
             ),
             width=400,
-            height=60,
-            text_style=ft.TextStyle(size=16, weight="bold")
+            height=60
         ),
         ft.Divider(height=20, color="transparent"),
         ft.Row([
@@ -67,8 +65,7 @@ def login_view(go_to_reg, on_login_click):
             ft.TextButton(
                 "Создать аккаунт",
                 on_click=go_to_reg,
-                style=ft.ButtonStyle(color=COLOR_ACCENT),
-                style_text=ft.TextStyle(size=14, weight="bold")
+                style=ft.ButtonStyle(color=COLOR_ACCENT)
             )
         ], alignment=ft.MainAxisAlignment.CENTER, spacing=10)
     ],
@@ -142,8 +139,7 @@ def reg_view(go_to_login, on_reg_click):
                 padding=20
             ),
             width=400,
-            height=60,
-            text_style=ft.TextStyle(size=16, weight="bold")
+            height=60
         ),
         ft.Divider(height=20, color="transparent"),
         ft.Row([
@@ -151,8 +147,7 @@ def reg_view(go_to_login, on_reg_click):
             ft.TextButton(
                 "Войти",
                 on_click=go_to_login,
-                style=ft.ButtonStyle(color=COLOR_ACCENT),
-                style_text=ft.TextStyle(size=14, weight="bold")
+                style=ft.ButtonStyle(color=COLOR_ACCENT)
             )
         ], alignment=ft.MainAxisAlignment.CENTER, spacing=10)
     ],
